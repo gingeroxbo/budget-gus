@@ -1,11 +1,7 @@
 /* Budget Gus : charge le contenu (chiffré ou non), l'affiche, et installe le mode hors connexion. */
 (function () {
-  const KEY = 'budget-code';
-  const store = {
-    get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } },
-    set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} },
-    del() { try { localStorage.removeItem(KEY); } catch (e) {} }
-  };
+  // Le code n'est jamais enregistré : il est demandé à chaque ouverture.
+  try { localStorage.removeItem('budget-code'); } catch (e) {}
   const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 
   if ('serviceWorker' in navigator) {
@@ -29,8 +25,15 @@
     document.body.appendChild(s);
     const sA = app.querySelector('.sA') || app;
     if (locked) {
-      sA.insertAdjacentHTML('beforeend', '<div class="lockbar"><button type="button" id="relock">Verrouiller l\'app sur cet appareil</button></div>');
-      document.getElementById('relock').onclick = () => { store.del(); location.reload(); };
+      sA.insertAdjacentHTML('beforeend', '<div class="lockbar"><button type="button" id="relock">Verrouiller maintenant</button></div>');
+      document.getElementById('relock').onclick = () => location.reload();
+      // Dès que l'app passe en arrière-plan, on efface l'écran ; au retour, le code est redemandé.
+      let away = false;
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { away = true; app.innerHTML = ''; }
+        else if (away) location.reload();
+      });
+      window.addEventListener('pagehide', () => { app.innerHTML = ''; });
     }
     if (content.updated) sA.insertAdjacentHTML('beforeend', `<p class="offline">Mis à jour le ${content.updated}${navigator.onLine ? '' : ' · hors connexion'}</p>`);
   }
@@ -59,7 +62,7 @@
       btn.disabled = true; btn.textContent = 'Ouverture…';
       try {
         const content = await decrypt(data.enc, code);
-        store.set(code);
+        document.getElementById('code').value = '';
         document.getElementById('lock').hidden = true;
         render(content, true);
       } catch (e) {
@@ -68,12 +71,8 @@
       btn.disabled = false; btn.textContent = 'Ouvrir';
     };
 
-    const saved = store.get();
-    if (saved) {
-      try { render(await decrypt(data.enc, saved), true); return; }
-      catch (e) { store.del(); showLock('Le code a changé. Entre le nouveau code.'); return; }
-    }
     showLock();
+    document.getElementById('code').focus();
   }
   start();
 })();
