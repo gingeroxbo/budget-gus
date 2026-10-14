@@ -1,7 +1,7 @@
 /* Hors connexion : réseau d'abord pour la page et les données, cache d'abord pour le reste. */
-const VERSION = 'budget-v2';
+const VERSION = 'budget-v3';
 const SHELL = [
-  './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'data/budget.json',
+  './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'icons/maskable-512.png',
   'fonts/unbounded-latin-400-normal.woff2', 'fonts/unbounded-latin-600-normal.woff2', 'fonts/unbounded-latin-700-normal.woff2',
   'fonts/ibm-plex-sans-latin-400-normal.woff2', 'fonts/ibm-plex-sans-latin-500-normal.woff2', 'fonts/ibm-plex-sans-latin-600-normal.woff2',
@@ -39,7 +39,8 @@ self.addEventListener('fetch', e => {
   if (url.origin !== location.origin) return;
 
   if (req.mode === 'navigate') { e.respondWith(networkFirst(req, 'index.html')); return; }
-  if (url.pathname.endsWith('/data/budget.json')) { e.respondWith(networkFirst(req, 'data/budget.json')); return; }
+  // Fichier chiffré de chaque compte : réseau d'abord, copie gardée pour l'usage hors connexion.
+  if (url.pathname.includes('/data/users/')) { e.respondWith(networkFirst(req, req.url)); return; }
 
   e.respondWith(caches.match(req, { ignoreSearch: true }).then(hit => hit || fetch(req).then(res => {
     if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }

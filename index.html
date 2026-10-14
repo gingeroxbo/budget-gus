@@ -25,9 +25,9 @@
   <form id="lockForm" autocomplete="on">
     <img src="icons/icon-192.png" alt="">
     <h1>Budget</h1>
-    <p>Entre ton code pour ouvrir ton budget. Il est demandé à chaque ouverture.</p>
-    <input type="text" name="username" value="budget" autocomplete="username" hidden>
-    <input id="code" type="password" name="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Code d'accès" required>
+    <p>Connecte-toi pour ouvrir ton budget. Le mot de passe est demandé à chaque ouverture.</p>
+    <input id="user" type="text" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Identifiant" aria-label="Identifiant" required>
+    <input id="code" type="password" name="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Mot de passe" aria-label="Mot de passe" required>
     <button type="submit">Ouvrir</button>
     <div class="err" id="err" role="alert"></div>
   </form>
