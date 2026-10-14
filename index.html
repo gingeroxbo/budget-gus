@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Budget Gus</title>
+<meta name="description" content="Tableau de bord du budget, consultable hors connexion.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101216">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Budget">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/unbounded-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app"></div>
+<div class="lock" id="lock" hidden>
+  <form id="lockForm" autocomplete="on">
+    <img src="icons/icon-192.png" alt="">
+    <h1>Budget</h1>
+    <p>Entre ton code pour ouvrir l'app. Il est demandé une seule fois sur cet appareil.</p>
+    <input type="text" name="username" value="budget" autocomplete="username" hidden>
+    <input id="code" type="password" name="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Code d'accès" required>
+    <button type="submit">Ouvrir</button>
+    <div class="err" id="err" role="alert"></div>
+  </form>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
