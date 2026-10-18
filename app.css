@@ -180,3 +180,9 @@ svg text{font-variant-numeric:tabular-nums}
 .lock input:focus{border-color:#3987e5}
 .lock button{width:100%;background:#eef0f3;color:#101216;border:0;font-weight:600}
 .lock .err{color:#e66767;min-height:22px;margin:12px 0 0;font-size:14px}
+
+.activ{max-width:560px;margin:0 auto 18px;padding:18px;border:1px dashed #262a32;border-radius:14px;text-align:center;color:#eef0f3;font-family:"IBM Plex Sans",sans-serif}
+.activ h2{font:600 13px "Unbounded",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#9aa1ad;margin:0 0 10px}
+.activ p{color:#9aa1ad;font-size:14px;margin:0 0 14px}
+.activ button{font:500 15px "IBM Plex Sans",sans-serif;min-height:48px;padding:0 22px;border-radius:999px;cursor:pointer;background:#eef0f3;color:#101216;border:0}
+.activ textarea{width:100%;font:400 11px "IBM Plex Mono",monospace;background:#171a20;color:#eef0f3;border:1px solid #262a32;border-radius:10px;padding:10px;margin-bottom:12px;word-break:break-all}

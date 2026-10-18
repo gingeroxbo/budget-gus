@@ -1,5 +1,5 @@
 /* Hors connexion : réseau d'abord pour la page et les données, cache d'abord pour le reste. */
-const VERSION = 'budget-v3';
+const VERSION = 'budget-v4';
 const SHELL = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'icons/maskable-512.png',
